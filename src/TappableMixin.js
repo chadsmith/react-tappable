@@ -250,7 +250,7 @@ var Mixin = {
 		if (callback) {
 			callback();
 		}
-		if (this.state.isActive) {
+		if (this.isMounted && this.state.isActive) {
 			this.setState({
 				isActive: false
 			});
@@ -295,9 +295,11 @@ var Mixin = {
 	endMouseEvent: function () {
 		this.cancelPressDetection();
 		this._mouseDown = false;
-		this.setState({
-			isActive: false
-		});
+		if (this.isMounted) {
+			this.setState({
+				isActive: false
+			});
+		}
 	},
 
 	onKeyUp: function (event) {
